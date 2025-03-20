@@ -89,8 +89,8 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form:form id="addTaskListForm" modelAttribute="taskListDto" method="post" action="/addTaskList/${id}">
-                            <form:hidden path="boardId" value="${id}" />
+                        <form:form id="addTaskListForm" modelAttribute="taskListDto" method="post" action="/addTaskList">
+                            <form:hidden path="boardId" value="${boardId}" />
                             <div class="mb-3">
                                 <label for="title" class="form-label">Tiêu đề</label>
                                 <form:input path="name" id="title" class="form-control" required="true" />

@@ -16,17 +16,18 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @RequestMapping("/board/{id}")
-    public String index(Model model, @PathVariable("id") int id) {
-        model.addAttribute("boardId", id);
-        model.addAttribute("taskLists", boardService.getTaskLists(id));
+    @RequestMapping("/board/{boardId}")
+    public String index(Model model, @PathVariable("boardId") int boardId) {
+        model.addAttribute("boardId", boardId);
+        model.addAttribute("taskLists", boardService.getTaskLists(boardId));
         model.addAttribute("taskListDto", new TaskListDto());
         return "board";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/addTaskList/{id}")
-    public String addTaskList(@PathVariable("id") int id, TaskListDto taskListDto) {
+    @RequestMapping(method = RequestMethod.POST, value = "/addTaskList")
+    public String addTaskList(TaskListDto taskListDto) {
         this.boardService.addTaskList(taskListDto);
-        return "redirect:/board/" + id;
+        return "redirect:/board/" + taskListDto.getBoardId();
     }
+
 }
