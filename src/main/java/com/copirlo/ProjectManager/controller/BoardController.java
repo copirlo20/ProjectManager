@@ -29,5 +29,4 @@ public class BoardController {
         this.boardService.addTaskList(taskListDto);
         return "redirect:/board/" + taskListDto.getBoardId();
     }
-
 }
