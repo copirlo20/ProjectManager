@@ -24,4 +24,8 @@ public class TaskService {
                 .orElseThrow(() -> new IllegalArgumentException("TaskList not found")));
         this.taskRepository.save(task);
     }
+
+    public void deleteTask(int taskId) {
+        this.taskRepository.deleteById(taskId);
+    }
 }

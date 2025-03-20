@@ -1,6 +1,8 @@
 package com.copirlo.ProjectManager.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.copirlo.ProjectManager.dto.TaskListDto;
@@ -15,8 +17,18 @@ public class TaskListController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/addTaskList")
-    public String addTaskList(TaskListDto taskListDto) {
+    public String addTaskList(
+            TaskListDto taskListDto,
+            @RequestHeader(value = "Referer", required = false) String referer) {
         this.taskListService.addTaskList(taskListDto);
-        return "redirect:/board/" + taskListDto.getBoardId();
+        return "redirect:" + referer;
+    }
+
+    @RequestMapping("/deleteTaskList/{taskListId}")
+    public String deleteTaskList(
+            @PathVariable("taskListId") int taskListId,
+            @RequestHeader(value = "Referer", required = false) String referer) {
+        this.taskListService.deleteTaskList(taskListId);
+        return "redirect:" + referer;
     }
 }

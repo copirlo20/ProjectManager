@@ -42,4 +42,10 @@ public class BoardController {
         this.boardService.addBoard(board, 1);
         return "redirect:/";
     }
+
+    @RequestMapping("/deleteBoard/{boardId}")
+    public String deleteBoard(@PathVariable("boardId") int boardId) {
+        this.boardService.deleteBoard(boardId);
+        return "redirect:/";
+    }
 }

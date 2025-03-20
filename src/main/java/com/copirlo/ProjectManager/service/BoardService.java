@@ -49,4 +49,8 @@ public class BoardService {
         board.setDescription(updateBoard.getDescription());
         this.boardRepository.save(board);
     }
+
+    public void deleteBoard(int boardId) {
+        this.boardRepository.deleteById(boardId);
+    }
 }

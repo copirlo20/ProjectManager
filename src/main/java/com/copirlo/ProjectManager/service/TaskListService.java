@@ -29,4 +29,8 @@ public class TaskListService {
         return this.boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException("Board not found"))
                 .getTaskLists();
     }
+
+    public void deleteTaskList(int taskListId) {
+        this.taskListRepository.deleteById(taskListId);
+    }
 }

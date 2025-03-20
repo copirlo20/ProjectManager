@@ -40,7 +40,7 @@
                                         <h5>${taskList.name}</h5>
                                         <div>
                                             <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteTaskListModal"><i class="fas fa-trash"></i></button>
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -75,7 +75,7 @@
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="addTaskModalLabel">Thêm công việc</h5>
+                                                <h5 class="modal-title" id="addTaskModalLabel">Thêm danh sách</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
@@ -94,6 +94,22 @@
                                                         <button type="submit" class="btn btn-success">Thêm</button>
                                                     </div>
                                                 </form:form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Modal Xác nhận Xóa -->
+                                <div class="modal fade" id="deleteTaskListModal" tabindex="-1" aria-labelledby="deleteTaskListModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteTaskListModalLabel">Xác nhận</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">Bạn chắc chắn muốn xóa danh sách này?</div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                <a type="button" class="btn btn-danger" id="confirmDeleteBtn" href="/deleteTaskList/${taskList.id}">Xóa</a>
                                             </div>
                                         </div>
                                     </div>

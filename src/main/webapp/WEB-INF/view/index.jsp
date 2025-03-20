@@ -33,27 +33,32 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Bảng</li>
                         </ol>
-                        <c:set var="colors" value="bg-primary,bg-success,bg-danger,bg-warning,bg-info,bg-dark" />
+                        <c:set var="colors" value="bg-primary,bg-success,bg-danger,bg-dark" />
                         <c:set var="index" value="0" />
                         <div class="row">
                             <c:forEach var="board" items="${boards}" varStatus="loop">
-                                <c:set var="color" value="${fn:split(colors, ',')[loop.index % 6]}" />
-                                <div class="col-xl-2 col-md-6">
-                                    <div class="card ${color} text-white mb-4 position-relative">
-                                        <a href="#" class="position-absolute top-0 end-0 m-2 text-white" data-bs-toggle="modal" data-bs-target="#updateBoardModal-${board.id}">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <div class="card-body">
-                                            <p class="text-decoration-underline m-0 fw-bold">${board.name}</p>
-                                        </div>
-                                        <div class="card-footer d-flex align-items-center justify-content-between">
-                                            <a class="small text-white text-decoration-none fw-normal" href="/board/${board.id}">${board.description}</a>
-                                            <div class="small text-white">
-                                                <i class="fas fa-angle-right"></i>
+                                <c:set var="color" value="${fn:split(colors, ',')[loop.index % 4]}" />
+                                <div class="col-xl-3 col-md-6 mb-3">
+                                    <div class="card shadow-sm border-0 rounded-3 ${color} text-white position-relative">
+                                        <div class="card-header bg-opacity-25 border-0 d-flex justify-content-between align-items-center p-2">
+                                            <h6 class="fw-bold m-0 text-truncate">${board.name}</h6>
+                                            <div>
+                                                <a href="#" class="text-white small me-2" data-bs-toggle="modal" data-bs-target="#updateBoardModal-${board.id}">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="#" class="text-white small" data-bs-toggle="modal" data-bs-target="#deleteBoardModal">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
                                             </div>
                                         </div>
-                                        <div class="card-footer text-center">
-                                            <a href="#" class="text-white text-decoration-none" data-bs-toggle="modal" data-bs-target="#addMemberModal-${board.id}">
+                                        <div class="card-body p-2">
+                                            <p class="small text-truncate">${board.description}</p>
+                                            <p class="text-white-50 small mb-1"><i class="fas fa-user me-1"></i> ${board.createdBy.fullName}</p>
+                                            <p class="text-white-50 small"><i class="fas fa-calendar-alt me-1"></i> ${board.createdAt}</p>
+                                        </div>
+                                        <div class="card-footer d-flex justify-content-between align-items-center bg-transparent border-0 p-2">
+                                            <a href="/board/${board.id}" class="btn btn-outline-light btn-sm px-2 py-1"> <i class="fas fa-external-link-alt"></i> Xem </a>
+                                            <a href="#" class="text-white small" data-bs-toggle="modal" data-bs-target="#addMemberModal-${board.id}">
                                                 <i class="fas fa-user-plus"></i>
                                             </a>
                                         </div>
@@ -114,6 +119,22 @@
                                                         <button type="submit" class="btn btn-primary">Thêm</button>
                                                     </div>
                                                 </form:form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Modal Xác nhận Xóa -->
+                                <div class="modal fade" id="deleteBoardModal" tabindex="-1" aria-labelledby="deleteBoardModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteBoardModalLabel">Xác nhận</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">Bạn chắc chắn muốn xóa bảng này?</div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                <a type="button" class="btn btn-danger" id="confirmDeleteBtn" href="/deleteBoard/${board.id}">xóa</a>
                                             </div>
                                         </div>
                                     </div>

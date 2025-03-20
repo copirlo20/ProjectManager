@@ -1,5 +1,6 @@
 package com.copirlo.ProjectManager.entity;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,10 +32,10 @@ public class Task {
     @JoinColumn(name = "task_list_id")
     private TaskList taskList;
 
-    // private Integer position;
+    private Integer position;
 
-    // @Column(name = "due_date")
-    // private Date dueDate;
+    @Column(name = "due_date")
+    private Date dueDate;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
