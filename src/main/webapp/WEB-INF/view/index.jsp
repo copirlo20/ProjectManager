@@ -60,22 +60,22 @@
                                     </div>
                                 </div>
                                 <!-- Modal update riêng cho từng board -->
-                                <div class="modal fade" id="updateBoardModal-${board.id}" tabindex="-1" aria-labelledby="updateBoardModalLabel-${board.id}" aria-hidden="true">
+                                <div class="modal fade" id="updateBoardModal-${board.id}" tabindex="-1" aria-labelledby="updateBoardModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="updateBoardModalLabel-${board.id}">Chỉnh sửa bảng</h5>
+                                                <h5 class="modal-title" id="updateBoardModalLabel">Chỉnh sửa bảng</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <form:form id="updateBoardForm-${board.id}" modelAttribute="updateBoard" method="post" action="/updateBoard">
+                                            <form:form id="updateBoardForm" modelAttribute="updateBoard" method="post" action="/updateBoard">
                                                 <form:hidden path="id" value="${board.id}" />
                                                 <div class="modal-body">
                                                     <div class="mb-3">
-                                                        <label for="title-${board.id}" class="form-label">Tiêu đề</label>
+                                                        <label for="title" class="form-label">Tiêu đề</label>
                                                         <form:input path="name" id="title-${board.id}" class="form-control" required="true" value="${board.name}" />
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="description-${board.id}" class="form-label">Mô tả</label>
+                                                        <label for="description" class="form-label">Mô tả</label>
                                                         <form:textarea path="description" id="description-${board.id}" class="form-control"></form:textarea>
                                                         <script>
                                                             document.getElementById('description-${board.id}').value = '${board.description}';
@@ -91,27 +91,27 @@
                                     </div>
                                 </div>
                                 <!-- Modal add member riêng cho từng board -->
-                                <div class="modal fade" id="addMemberModal-${board.id}" tabindex="-1" aria-labelledby="addMemberModalLabel-${board.id}" aria-hidden="true">
+                                <div class="modal fade" id="addMemberModal-${board.id}" tabindex="-1" aria-labelledby="addMemberModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="addMemberModalLabel-${board.id}">Thêm thành viên vào ${board.name}</h5>
+                                                <h5 class="modal-title" id="addMemberModalLabel">Thêm thành viên vào ${board.name}</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form:form id="addMemberForm-${board.id}" action="/addMember" method="post" modelAttribute="newMember">
+                                                <form:form id="addMemberForm" action="/addMember" method="post" modelAttribute="newMember">
                                                     <form:hidden path="boardId" value="${board.id}" />
                                                     <div class="mb-3">
-                                                        <label for="email-${board.id}" class="form-label">Email</label>
+                                                        <label for="email" class="form-label">Email</label>
                                                         <form:input type="email" class="form-control" id="email-${board.id}" path="email" required="true" />
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="role-${board.id}" class="form-label">Role</label>
+                                                        <label for="role" class="form-label">Role</label>
                                                         <form:input type="text" class="form-control" id="role-${board.id}" path="role" required="true" />
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                        <button type="submit" form="addMemberForm-${board.id}" class="btn btn-primary">Thêm</button>
+                                                        <button type="submit" class="btn btn-primary">Thêm</button>
                                                     </div>
                                                 </form:form>
                                             </div>

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import com.copirlo.ProjectManager.dto.TaskDto;
 import com.copirlo.ProjectManager.dto.TaskListDto;
 import com.copirlo.ProjectManager.entity.Board;
 import com.copirlo.ProjectManager.service.BoardService;
@@ -26,6 +27,7 @@ public class BoardController {
         model.addAttribute("boardId", boardId);
         model.addAttribute("taskLists", taskListService.getTaskLists(boardId));
         model.addAttribute("taskListDto", new TaskListDto());
+        model.addAttribute("taskDto", new TaskDto());
         return "board";
     }
 
