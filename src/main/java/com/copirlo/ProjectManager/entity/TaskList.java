@@ -2,7 +2,6 @@ package com.copirlo.ProjectManager.entity;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,8 +30,6 @@ public class TaskList {
     @ManyToOne
     @JoinColumn(name = "board_id")
     private Board board;
-
-    private Integer position;
 
     @OneToMany(mappedBy = "taskList", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> tasks;
