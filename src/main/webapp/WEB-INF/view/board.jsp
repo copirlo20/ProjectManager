@@ -17,7 +17,7 @@
         <title>Dashboard - SB Admin</title>
         <link href="/css/styles.css" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -93,7 +93,10 @@
                                                         <form:textarea path="description" id="description" class="form-control" />
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="datepicker" class="form-label fw-bold">Hạn:</label>
+                                                        <input type="checkbox" id="enableDueDate" />
+                                                        <label for="enableDueDate">Thời hạn</label>
+                                                    </div>
+                                                    <div class="mb-3" id="datepicker-container" style="display: none">
                                                         <form:input type="hidden" path="dueDate" id="dueDate" />
                                                         <div id="datepicker-inline" class="shadow-sm p-3 bg-light rounded"></div>
                                                     </div>
