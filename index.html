@@ -3,9 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Task Manager - Trello Clone</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .board {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .list {
+            background: #fff;
+            padding: 10px;
+            width: 300px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .list h3 {
+            text-align: center;
+            color: #333;
+        }
+        .card {
+            background: #e3e3e3;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            cursor: grab;
+        }
+        .add-card {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    My Github
+    <h2 style="text-align:center;">Task Manager - Trello Clone</h2>
+    <div class="board">
+        <div class="list" id="todo">
+            <h3>To Do</h3>
+            <button class="add-card" onclick="addCard('todo')">+ Add Task</button>
+        </div>
+        <div class="list" id="inprogress">
+            <h3>In Progress</h3>
+            <button class="add-card" onclick="addCard('inprogress')">+ Add Task</button>
+        </div>
+        <div class="list" id="done">
+            <h3>Done</h3>
+            <button class="add-card" onclick="addCard('done')">+ Add Task</button>
+        </div>
+    </div>
+
+    <script>
+        function addCard(listId) {
+            let taskText = prompt("Enter task:");
+            if (!taskText) return;
+            
+            let card = document.createElement("div");
+            card.className = "card";
+            card.textContent = taskText;
+            card.draggable = true;
+            card.ondragstart = drag;
+            
+            document.getElementById(listId).appendChild(card);
+        }
+
+        function drag(event) {
+            event.dataTransfer.setData("text", event.target.id);
+        }
+
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drop(event, listId) {
+            event.preventDefault();
+            let data = event.dataTransfer.getData("text");
+            let card = document.getElementById(data);
+            document.getElementById(listId).appendChild(card);
+        }
+
+        document.querySelectorAll('.list').forEach(list => {
+            list.ondragover = allowDrop;
+            list.ondrop = function(event) { drop(event, list.id); };
+        });
+    </script>
 </body>
 </html>
