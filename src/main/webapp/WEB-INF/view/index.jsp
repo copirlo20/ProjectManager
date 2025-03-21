@@ -64,6 +64,22 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Modal xóa board -->
+                                <div class="modal fade" id="deleteBoardModal" tabindex="-1" aria-labelledby="deleteBoardModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteBoardModalLabel">Xác nhận</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">Bạn chắc chắn muốn xóa bảng này?</div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                <a type="button" class="btn btn-danger" id="confirmDeleteBtn" href="/deleteBoard/${board.id}">xóa</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- Modal update riêng cho từng board -->
                                 <div class="modal fade" id="updateBoardModal-${board.id}" tabindex="-1" aria-labelledby="updateBoardModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
@@ -77,11 +93,11 @@
                                                 <div class="modal-body">
                                                     <div class="mb-3">
                                                         <label for="title" class="form-label">Tiêu đề</label>
-                                                        <form:input path="name" id="title-${board.id}" class="form-control" required="true" value="${board.name}" />
+                                                        <form:input path="name" id="title" class="form-control" required="true" value="${board.name}" />
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="description" class="form-label">Mô tả</label>
-                                                        <form:textarea path="description" id="description-${board.id}" class="form-control"></form:textarea>
+                                                        <form:textarea path="description" id="description" class="form-control"></form:textarea>
                                                         <script>
                                                             document.getElementById('description-${board.id}').value = '${board.description}';
                                                         </script>
@@ -108,33 +124,17 @@
                                                     <form:hidden path="boardId" value="${board.id}" />
                                                     <div class="mb-3">
                                                         <label for="email" class="form-label">Email</label>
-                                                        <form:input type="email" class="form-control" id="email-${board.id}" path="email" required="true" />
+                                                        <form:input type="email" class="form-control" id="email" path="email" required="true" />
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="role" class="form-label">Role</label>
-                                                        <form:input type="text" class="form-control" id="role-${board.id}" path="role" required="true" />
+                                                        <form:input type="text" class="form-control" id="role" path="role" required="true" />
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                                                         <button type="submit" class="btn btn-primary">Thêm</button>
                                                     </div>
                                                 </form:form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Modal Xác nhận Xóa -->
-                                <div class="modal fade" id="deleteBoardModal" tabindex="-1" aria-labelledby="deleteBoardModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="deleteBoardModalLabel">Xác nhận</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">Bạn chắc chắn muốn xóa bảng này?</div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                                                <a type="button" class="btn btn-danger" id="confirmDeleteBtn" href="/deleteBoard/${board.id}">xóa</a>
                                             </div>
                                         </div>
                                     </div>

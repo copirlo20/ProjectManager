@@ -11526,3 +11526,49 @@ body {
     font-size: 0.75rem;
     border-radius: 0.375rem !important;
 }
+
+#datepicker-inline .datepicker {
+    width: 100%;
+    font-size: 0.9rem;
+}
+.datepicker table {
+    width: 100%;
+    margin: 0 auto;
+}
+.datepicker td,
+.datepicker th {
+    text-align: center;
+    padding: 8px;
+}
+.datepicker .day {
+    transition: all 0.2s;
+}
+.datepicker .day:hover {
+    background-color: #0d6efd; /* Màu xanh Bootstrap */
+    color: white;
+    cursor: pointer;
+    border-radius: 50%;
+}
+.datepicker .today {
+    background-color: #ffc107; /* Màu vàng cho ngày hiện tại */
+    color: #000;
+    border-radius: 50%;
+}
+.datepicker .active {
+    background-color: #198754; /* Màu xanh lá cho ngày được chọn */
+    color: white !important;
+    border-radius: 50%;
+}
+.datepicker .prev,
+.datepicker .next,
+.datepicker .datepicker-switch {
+    background-color: #f8f9fa;
+    transition: all 0.2s;
+}
+.datepicker .prev:hover,
+.datepicker .next:hover,
+.datepicker .datepicker-switch:hover {
+    background-color: #0d6efd;
+    color: white;
+    cursor: pointer;
+}
