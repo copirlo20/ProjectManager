@@ -97,7 +97,7 @@
                                                         <label for="enableDueDate">Thời hạn</label>
                                                     </div>
                                                     <div class="mb-3" id="datepicker-container" style="display: none">
-                                                        <form:input type="hidden" path="dueDate" id="dueDate" />
+                                                        <form:input type="hidden" path="dueDate" id="dueDate" value="1970-01-01" />
                                                         <div id="datepicker-inline" class="shadow-sm p-3 bg-light rounded"></div>
                                                     </div>
                                                     <div class="modal-footer">

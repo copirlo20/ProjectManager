@@ -1,5 +1,6 @@
 package com.copirlo.ProjectManager.service;
 
+import java.sql.Date;
 import org.springframework.stereotype.Service;
 import com.copirlo.ProjectManager.dto.TaskDto;
 import com.copirlo.ProjectManager.entity.Task;
@@ -20,6 +21,11 @@ public class TaskService {
         Task task = new Task();
         task.setTitle(taskDto.getTitle());
         task.setDescription(taskDto.getDescription());
+        if (taskDto.getDueDate().toLocalDate().equals(new Date(0).toLocalDate())) {
+            task.setDueDate(null);
+        } else {
+            task.setDueDate(taskDto.getDueDate());
+        }
         task.setTaskList(this.taskListRepository.findById(taskDto.getTaskListId())
                 .orElseThrow(() -> new IllegalArgumentException("TaskList not found")));
         this.taskRepository.save(task);
