@@ -58,12 +58,44 @@
                                                         <p class="card-text text-muted" style="font-size: 0.9rem">${task.description}</p>
                                                         <div class="d-flex justify-content-between align-items-center mt-3">
                                                             <div>
-                                                                <i class="fas fa-user-circle fa-lg me-1"></i>
+                                                                <i class="fas fa-comment-alt fa-lg" data-bs-toggle="modal" data-bs-target="#commentModal"></i>
                                                                 <i class="fas fa-user-circle fa-lg"></i>
                                                             </div>
                                                             <div>
                                                                 <button class="btn btn-light btn-sm"><i class="fas fa-arrow-left"></i></button>
                                                                 <button class="btn btn-light btn-sm"><i class="fas fa-arrow-right"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="commentModalLabel">Bình luận</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <!-- Danh sách bình luận cũ -->
+                                                                <div class="mb-3">
+                                                                    <div id="commentList" class="border rounded p-2 overflow-auto" style="max-height: 300px">
+                                                                        <c:forEach var="comment" items="${task.comments}" varStatus="loop">
+                                                                            <p class="mb-1"><strong>${comment.user.fullName}:</strong> ${comment.content}</p>
+                                                                            <small class="text-muted">${comment.createdAt}</small>
+                                                                        </c:forEach>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- Form nhập bình luận mới -->
+                                                                <form id="addCommentForm" method="post" action="/addComment">
+                                                                    <div class="mb-3">
+                                                                        <label for="newComment" class="form-label">Bình luận của bạn</label>
+                                                                        <textarea id="newComment" name="comment" class="form-control" rows="3" required></textarea>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                                        <button type="submit" class="btn btn-success">Gửi</button>
+                                                                    </div>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>

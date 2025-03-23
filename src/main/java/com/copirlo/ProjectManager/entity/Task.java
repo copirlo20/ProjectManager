@@ -3,6 +3,8 @@ package com.copirlo.ProjectManager.entity;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,7 +36,7 @@ public class Task {
     @JoinColumn(name = "task_list_id")
     private TaskList taskList;
 
-    @OneToMany(mappedBy = "task")
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
 
     private Integer position;
