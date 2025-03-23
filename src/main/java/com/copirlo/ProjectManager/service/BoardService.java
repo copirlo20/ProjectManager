@@ -24,8 +24,8 @@ public class BoardService {
         this.boardMemberRepository = boardMemberRepository;
     }
 
-    public List<Board> getBoard(int id) {
-        List<BoardMember> boardMembers = this.boardMemberRepository.findByUserId(id);
+    public List<Board> getBoard(int userId) {
+        List<BoardMember> boardMembers = this.boardMemberRepository.findByUserId(userId);
         List<Board> boards = boardMembers.stream()
                 .map(BoardMember::getBoard)
                 .sorted((b1, b2) -> b2.getCreatedAt().compareTo(b1.getCreatedAt()))
