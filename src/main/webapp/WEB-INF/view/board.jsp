@@ -32,10 +32,7 @@
             <div id="layoutSidenav_content">
                 <main style="padding-bottom: 60px">
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Workspace</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Bảng</li>
-                        </ol>
+                        <h4 class="mt-4"></h4>
                         <div class="d-flex flex-row flex-nowrap" style="gap: 1rem">
                             <c:forEach var="taskList" items="${taskLists}" varStatus="loop">
                                 <div class="card text-bg-light mb-3" style="min-width: 20rem; max-width: 22rem; margin-bottom: 4px">

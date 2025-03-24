@@ -29,10 +29,7 @@
             <div id="layoutSidenav_content">
                 <main style="padding-bottom: 60px">
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Workspace</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Bảng</li>
-                        </ol>
+                        <h3 class="mt-2">Workspace</h3>
                         <c:set var="colors" value="bg-primary,bg-success,bg-danger,bg-dark" />
                         <c:set var="index" value="0" />
                         <div class="row">

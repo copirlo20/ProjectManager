@@ -7,16 +7,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.copirlo.ProjectManager.dto.MemberDto;
 import com.copirlo.ProjectManager.entity.Board;
 import com.copirlo.ProjectManager.service.BoardService;
-import com.copirlo.ProjectManager.service.UserService;
 
 @Controller
 public class UserController {
-    private final UserService userService;
     private final BoardService boardService;
 
-    public UserController(UserService userService, BoardService boardService) {
-        this.userService = userService;
+    public UserController(BoardService boardService) {
         this.boardService = boardService;
+    }
+
+    @RequestMapping("/login")
+    public String getLoginPage() {
+        return "login";
     }
 
     @RequestMapping("/")
