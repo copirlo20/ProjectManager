@@ -20,17 +20,20 @@
     </nav>
     
     <div class="board">
-        <div class="column" id="todo">
+        <div class="column" id="todo" ondrop="drop(event)" ondragover="allowDrop(event)">
             <h2>To Do</h2>
             <button class="add-task" onclick="addTask('todo')">+ Add Task</button>
+            <div class="task-list"></div>
         </div>
-        <div class="column" id="inprogress">
+        <div class="column" id="inprogress" ondrop="drop(event)" ondragover="allowDrop(event)">
             <h2>In Progress</h2>
             <button class="add-task" onclick="addTask('inprogress')">+ Add Task</button>
+            <div class="task-list"></div>
         </div>
-        <div class="column" id="done">
+        <div class="column" id="done" ondrop="drop(event)" ondragover="allowDrop(event)">
             <h2>Done</h2>
             <button class="add-task" onclick="addTask('done')">+ Add Task</button>
+            <div class="task-list"></div>
         </div>
     </div>
     
