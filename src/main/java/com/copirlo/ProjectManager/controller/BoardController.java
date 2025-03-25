@@ -10,28 +10,28 @@ import com.copirlo.ProjectManager.dto.TaskDto;
 import com.copirlo.ProjectManager.dto.TaskListDto;
 import com.copirlo.ProjectManager.entity.Board;
 import com.copirlo.ProjectManager.service.BoardService;
-import com.copirlo.ProjectManager.service.SessionService;
 import com.copirlo.ProjectManager.service.TaskListService;
+import com.copirlo.ProjectManager.service.UserService;
 import org.springframework.ui.Model;
 
 @Controller
 public class BoardController {
     private final BoardService boardService;
     private final TaskListService taskListService;
-    private final SessionService sessionService;
+    private final UserService userService;
 
     public BoardController(
             BoardService boardService,
             TaskListService taskListService,
-            SessionService sessionService) {
+            UserService userService) {
         this.boardService = boardService;
         this.taskListService = taskListService;
-        this.sessionService = sessionService;
+        this.userService = userService;
     }
 
     @RequestMapping("/board/{boardId}")
     public String index(Model model, @PathVariable("boardId") int boardId) {
-        if (!sessionService.checkMember(boardId)) {
+        if (!this.userService.checkMember(boardId)) {
             return "401";
         }
         model.addAttribute("boardId", boardId);
@@ -50,7 +50,7 @@ public class BoardController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/addBoard")
     public String addBoard(@ModelAttribute("newBoard") Board board) {
-        int userId = (int) this.sessionService.sessionConfig().getAttribute("userId");
+        int userId = (int) this.userService.sessionConfig().getAttribute("userId");
         this.boardService.addBoard(board, userId);
         return "redirect:/";
     }

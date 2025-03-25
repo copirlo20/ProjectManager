@@ -38,7 +38,7 @@
                                 <div class="col-xl-3 col-md-6 mb-3">
                                     <div class="card shadow-sm border-0 rounded-3 ${color} text-white position-relative">
                                         <div class="card-header bg-opacity-25 border-0 d-flex justify-content-between align-items-center p-2">
-                                            <h6 class="fw-bold m-0 text-truncate">${board.name}</h6>
+                                            <h5 class="fw-bold m-0 text-truncate">${board.name}</h5>
                                             <div>
                                                 <a href="#" class="text-white small me-2" data-bs-toggle="modal" data-bs-target="#updateBoardModal-${board.id}">
                                                     <i class="fas fa-edit"></i>
@@ -94,7 +94,7 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="description" class="form-label">Mô tả</label>
-                                                        <form:textarea path="description" id="description" class="form-control"></form:textarea>
+                                                        <form:textarea path="description" id="description-${board.id}" class="form-control"></form:textarea>
                                                         <script>
                                                             document.getElementById('description-${board.id}').value = '${board.description}';
                                                         </script>

@@ -1,6 +1,5 @@
 package com.copirlo.ProjectManager.service;
 
-import java.util.List;
 import org.springframework.stereotype.Service;
 import com.copirlo.ProjectManager.dto.CommentDto;
 import com.copirlo.ProjectManager.entity.Comment;
@@ -29,11 +28,5 @@ public class CommentService {
         comment.setTask(this.taskRepository.findById(commentDto.getTaskId()).get());
         comment.setUser(this.userRepository.findById(commentDto.getUserId()).get());
         this.commentRepository.save(comment);
-    }
-
-    public List<Comment> getComments(int taskId) {
-        List<Comment> comments = this.taskRepository.findById(taskId).get().getComments();
-        comments.sort((b1, b2) -> b1.getCreatedAt().compareTo(b2.getCreatedAt()));
-        return comments;
     }
 }

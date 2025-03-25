@@ -99,45 +99,45 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <!-- Modal add task -->
+                                                <div class="modal fade" id="addTaskModal-${taskList.id}" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="addTaskModalLabel">Thêm danh sách</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form:form id="addTaskForm" modelAttribute="taskDto" method="post" action="/addTask">
+                                                                    <form:hidden path="taskListId" value="${taskList.id}" />
+                                                                    <div class="mb-3">
+                                                                        <label for="title" class="form-label">Tiêu đề</label>
+                                                                        <form:input path="title" id="title" class="form-control" required="true" />
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="description" class="form-label">Mô tả</label>
+                                                                        <form:textarea path="description" id="description" class="form-control" />
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <input type="checkbox" id="enableDueDate" />
+                                                                        <label for="enableDueDate">Thời hạn</label>
+                                                                    </div>
+                                                                    <div class="mb-3" id="datepicker-container" style="display: none">
+                                                                        <form:input type="hidden" path="dueDate" id="dueDate" value="1970-01-01" />
+                                                                        <div id="datepicker-inline" class="shadow-sm p-3 bg-light rounded"></div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                                        <button type="submit" class="btn btn-success">Thêm</button>
+                                                                    </div>
+                                                                </form:form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </c:forEach>
                                         </div>
                                         <button class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#addTaskModal-${taskList.id}"><i class="fas fa-plus"></i> Task</button>
-                                    </div>
-                                </div>
-                                <!-- Modal add task -->
-                                <div class="modal fade" id="addTaskModal-${taskList.id}" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="addTaskModalLabel">Thêm danh sách</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form:form id="addTaskForm" modelAttribute="taskDto" method="post" action="/addTask">
-                                                    <form:hidden path="taskListId" value="${taskList.id}" />
-                                                    <div class="mb-3">
-                                                        <label for="title" class="form-label">Tiêu đề</label>
-                                                        <form:input path="title" id="title" class="form-control" required="true" />
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="description" class="form-label">Mô tả</label>
-                                                        <form:textarea path="description" id="description" class="form-control" />
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <input type="checkbox" id="enableDueDate" />
-                                                        <label for="enableDueDate">Thời hạn</label>
-                                                    </div>
-                                                    <div class="mb-3" id="datepicker-container" style="display: none">
-                                                        <form:input type="hidden" path="dueDate" id="dueDate" value="1970-01-01" />
-                                                        <div id="datepicker-inline" class="shadow-sm p-3 bg-light rounded"></div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                        <button type="submit" class="btn btn-success">Thêm</button>
-                                                    </div>
-                                                </form:form>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                                 <!-- Modal xóa TaskList -->
