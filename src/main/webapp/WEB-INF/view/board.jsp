@@ -83,16 +83,18 @@
                                                                     </div>
                                                                 </div>
                                                                 <!-- Form nhập bình luận mới -->
-                                                                <form id="addCommentForm" method="post" action="/addComment">
+                                                                <form:form id="addCommentForm" modelAttribute="commentDto" method="post" action="/addComment">
+                                                                    <form:hidden path="taskId" value="${task.id}" />
+                                                                    <form:hidden path="userId" value="${userId}" />
                                                                     <div class="mb-3">
                                                                         <label for="newComment" class="form-label">Bình luận của bạn</label>
-                                                                        <textarea id="newComment" name="comment" class="form-control" rows="3" required></textarea>
+                                                                        <form:textarea id="newComment" path="content" class="form-control" rows="3" required="true" />
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                                                                         <button type="submit" class="btn btn-success">Gửi</button>
                                                                     </div>
-                                                                </form>
+                                                                </form:form>
                                                             </div>
                                                         </div>
                                                     </div>

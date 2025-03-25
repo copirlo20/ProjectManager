@@ -37,4 +37,8 @@ public class BoardMemberService {
         this.boardMemberRepository.save(boardMember);
         return "Thành viên đã được thêm";
     }
+
+    public boolean checkMember(int boarId, int userId) {
+        return this.boardMemberRepository.findByBoardIdAndUserId(boarId, userId).isPresent();
+    }
 }

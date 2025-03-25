@@ -24,9 +24,9 @@
                 <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
-                    <form action="/logout" method="post">
+                    <form:form action="/logout" method="post">
                         <button type="submit" class="dropdown-item">Logout</button>
-                    </form>
+                    </form:form>
                 </li>
             </ul>
         </li>

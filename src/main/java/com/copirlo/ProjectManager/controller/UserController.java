@@ -7,13 +7,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.copirlo.ProjectManager.dto.MemberDto;
 import com.copirlo.ProjectManager.entity.Board;
 import com.copirlo.ProjectManager.service.BoardService;
+import com.copirlo.ProjectManager.service.SessionService;
 
 @Controller
 public class UserController {
     private final BoardService boardService;
+    private final SessionService sessionService;
 
-    public UserController(BoardService boardService) {
+    public UserController(BoardService boardService, SessionService sessionService) {
         this.boardService = boardService;
+        this.sessionService = sessionService;
     }
 
     @RequestMapping("/login")
@@ -23,7 +26,8 @@ public class UserController {
 
     @RequestMapping("/")
     public String index(Model model) {
-        List<Board> boards = this.boardService.getBoard(1);
+        int userId = (int) this.sessionService.sessionConfig().getAttribute("userId");
+        List<Board> boards = this.boardService.getBoard(userId);
         model.addAttribute("boards", boards);
         model.addAttribute("newBoard", new Board());
         model.addAttribute("newMember", new MemberDto());
