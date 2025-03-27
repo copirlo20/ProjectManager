@@ -14,7 +14,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Dashboard - SB Admin</title>
+        <title>Project Management</title>
         <link href="/css/styles.css" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
@@ -47,7 +47,7 @@
                                         <div class="d-flex flex-column">
                                             <c:forEach var="task" items="${taskList.tasks}" varStatus="loop">
                                                 <div class="card shadow-sm mb-3" style="width: 100%; border-radius: 8px">
-                                                    <div class="card-body">
+                                                    <div class="card-body p-2">
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <h5 class="card-title mb-0">${task.title}</h5>
                                                             <span class="badge bg-success">Done</span>
@@ -55,8 +55,8 @@
                                                         <p class="card-text text-muted" style="font-size: 0.9rem">${task.description}</p>
                                                         <div class="d-flex justify-content-between align-items-center mt-3">
                                                             <div>
-                                                                <i class="fas fa-comment-alt fa-lg" data-bs-toggle="modal" data-bs-target="#commentModal"></i>
-                                                                <i class="fas fa-user-circle fa-lg"></i>
+                                                                <p class="mb-0"><i class="fas fa-comment-alt fa-sm" data-bs-toggle="modal" data-bs-target="#commentModal"></i> <span>${fn:length(task.comments)}</span></p>
+                                                                <!-- <p class="mb-0"><i class="fas fa-user-circle fa-sm"></i></p> -->
                                                             </div>
                                                             <div>
                                                                 <button class="btn btn-light btn-sm"><i class="fas fa-arrow-left"></i></button>
@@ -65,6 +65,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <!-- Modal comment -->
                                                 <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered">
                                                         <div class="modal-content">
@@ -73,7 +74,6 @@
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <!-- Danh sách bình luận cũ -->
                                                                 <div class="mb-3">
                                                                     <div id="commentList" class="border rounded p-2 overflow-auto" style="max-height: 300px">
                                                                         <c:forEach var="comment" items="${task.comments}" varStatus="loop">
@@ -82,7 +82,6 @@
                                                                         </c:forEach>
                                                                     </div>
                                                                 </div>
-                                                                <!-- Form nhập bình luận mới -->
                                                                 <form:form id="addCommentForm" modelAttribute="commentDto" method="post" action="/addComment">
                                                                     <form:hidden path="taskId" value="${task.id}" />
                                                                     <form:hidden path="userId" value="${userId}" />

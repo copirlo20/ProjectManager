@@ -35,6 +35,6 @@ public class BoardMemberService {
         boardMember.setUser(this.userRepository.findByEmail(memberDto.getEmail()).orElse(null));
         boardMember.setRole(memberDto.getRole());
         this.boardMemberRepository.save(boardMember);
-        return "Thành viên đã được thêm";
+        return "";
     }
 }

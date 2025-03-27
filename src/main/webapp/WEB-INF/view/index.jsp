@@ -14,7 +14,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Dashboard - SB Admin</title>
+        <title>Project Management</title>
         <link href="/css/styles.css" rel="stylesheet" />
         <script src="/js/scripts.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -109,12 +109,19 @@
                                     </div>
                                 </div>
                                 <!-- Modal add member riêng cho từng board -->
-                                <div class="modal fade" id="addMemberModal-${board.id}" tabindex="-1" aria-labelledby="addMemberModalLabel" aria-hidden="true">
+                                <div
+                                    class="modal fade"
+                                    id="addMemberModal-${board.id}"
+                                    tabindex="-1"
+                                    aria-labelledby="addMemberModalLabel"
+                                    aria-hidden="true"
+                                    th:classappend="${showAddMemberModalId == board.id and showAddMemberModal} ? 'show d-block' : ''"
+                                    th:style="${showAddMemberModalId == board.id and showAddMemberModal} ? 'display: block; background: rgba(0,0,0,0.5);' : ''"
+                                >
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="addMemberModalLabel">Thêm thành viên vào ${board.name}</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <form:form id="addMemberForm" action="/addMember" method="post" modelAttribute="newMember">
@@ -127,8 +134,11 @@
                                                         <label for="role" class="form-label">Role</label>
                                                         <form:input type="text" class="form-control" id="role" path="role" required="true" />
                                                     </div>
+                                                    <c:if test="${not empty errorMessage}">
+                                                        <div class="alert alert-danger">${errorMessage}</div>
+                                                    </c:if>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" onclick="document.getElementById('addMemberModal-${board.id}').classList.remove('show', 'd-block');">Đóng</button>
                                                         <button type="submit" class="btn btn-primary">Thêm</button>
                                                     </div>
                                                 </form:form>
