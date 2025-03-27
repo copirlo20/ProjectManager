@@ -97,6 +97,13 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <c:if test="${not empty openModalId}">
+                                                    <script>
+                                                        $(document).ready(function () {
+                                                            $('#' + '${openModalId}').modal('show');
+                                                        });
+                                                    </script>
+                                                </c:if>
                                             </c:forEach>
                                         </div>
                                         <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addTaskModal-${taskList.id}"><i class="fas fa-plus"></i> Task</button>

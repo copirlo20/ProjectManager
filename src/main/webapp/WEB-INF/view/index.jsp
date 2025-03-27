@@ -108,8 +108,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Modal add member riêng cho từng board -->
                                 <div class="modal fade" id="addMemberModal-${board.id}" tabindex="-1" aria-labelledby="addMemberModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
@@ -121,17 +119,17 @@
                                                     <form:hidden path="boardId" value="${board.id}" />
                                                     <div class="mb-3">
                                                         <label for="email" class="form-label">Email</label>
-                                                        <form:input type="email" class="form-control" id="email" path="email" required="true" />
+                                                        <form:input type="email" class="form-control" id="email" path="email" required="true" value="${errorMember.email}" />
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="role" class="form-label">Role</label>
-                                                        <form:input type="text" class="form-control" id="role" path="role" required="true" />
+                                                        <form:input type="text" class="form-control" id="role" path="role" required="true" value="${errorMember.role}" />
                                                     </div>
                                                     <c:if test="${not empty errorMessage}">
-                                                        <div class="alert alert-danger">${errorMessage}</div>
+                                                        <div class="alert alert-danger" id="error-message">${errorMessage}</div>
                                                     </c:if>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" aria-label="Close" onclick="document.getElementById('addMemberModal-${board.id}').classList.remove('show', 'd-block');">Close</button>
+                                                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal('${board.id}')">Close</button>
                                                         <button type="submit" class="btn btn-primary btn-sm">Add</button>
                                                     </div>
                                                 </form:form>
@@ -139,6 +137,20 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- JavaScript để xóa lỗi khi đóng modal -->
+                                <script>
+                                    function closeModal(boardId) {
+                                        let modal = document.getElementById('addMemberModal-' + boardId);
+                                        let errorMessage = modal.querySelector('#error-message');
+                                        let errorEmail = modal.querySelector('#email');
+                                        let errorRole = modal.querySelector('#role');
+                                        errorEmail.value = '';
+                                        errorRole.value = '';
+                                        errorMessage.remove();
+                                    }
+                                </script>
+
                                 <c:if test="${not empty openModalId}">
                                     <script>
                                         $(document).ready(function () {
