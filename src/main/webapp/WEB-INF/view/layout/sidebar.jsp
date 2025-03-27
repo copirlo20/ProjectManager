@@ -13,11 +13,11 @@
                 <div class="sb-sidenav-menu-heading">Menu</div>
                 <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#addBoardModal">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                    Tạo bảng
+                    Create Board
                 </a>
                 <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#addTaskListModal">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                    Tạo danh sách
+                    Create List
                 </a>
             </div>
         </div>

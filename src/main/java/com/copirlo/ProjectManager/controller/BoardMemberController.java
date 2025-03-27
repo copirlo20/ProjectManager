@@ -17,18 +17,29 @@ public class BoardMemberController {
         this.boardMemberService = boardMemberService;
     }
 
+    // @RequestMapping(method = RequestMethod.POST, value = "/addMember")
+    // public String addBoardMember(
+    // @ModelAttribute("newMember") MemberDto memberDto,
+    // Model model,
+    // RedirectAttributes redirectAttributes) {
+    // String result = boardMemberService.addBoardMember(memberDto);
+    // if (!result.isEmpty()) {
+    // redirectAttributes.addFlashAttribute("errorMessage", result);
+    // return "redirect:/";
+    // }
+    // return "redirect:/";
+    // }
+
     @RequestMapping(method = RequestMethod.POST, value = "/addMember")
     public String addBoardMember(
             @ModelAttribute("newMember") MemberDto memberDto,
             Model model,
             RedirectAttributes redirectAttributes) {
         String result = boardMemberService.addBoardMember(memberDto);
-        if (!result.equals("")) {
+        if (!result.isEmpty()) {
             redirectAttributes.addFlashAttribute("errorMessage", result);
-            redirectAttributes.addFlashAttribute("showAddMemberModal", true);
-            redirectAttributes.addFlashAttribute("showAddMemberModalId", memberDto.getBoardId());
-            return "redirect:";
+            redirectAttributes.addFlashAttribute("openModalId", "addMemberModal-" + memberDto.getBoardId());
         }
-        return "redirect:";
+        return "redirect:/";
     }
 }

@@ -22,7 +22,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.vi.min.js"></script>
         <script src="/js/scripts.js"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -55,7 +54,7 @@
                                                         <p class="card-text text-muted" style="font-size: 0.9rem">${task.description}</p>
                                                         <div class="d-flex justify-content-between align-items-center mt-3">
                                                             <div>
-                                                                <p class="mb-0"><i class="fas fa-comment-alt fa-sm" data-bs-toggle="modal" data-bs-target="#commentModal"></i> <span>${fn:length(task.comments)}</span></p>
+                                                                <p class="mb-0"><i class="fas fa-comment-alt fa-sm" data-bs-toggle="modal" data-bs-target="#commentModal-${task.id}"></i> <span>${fn:length(task.comments)}</span></p>
                                                                 <!-- <p class="mb-0"><i class="fas fa-user-circle fa-sm"></i></p> -->
                                                             </div>
                                                             <div>
@@ -65,12 +64,13 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <!-- Modal comment -->
-                                                <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="commentModal-${task.id}" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="commentModalLabel">Bình luận</h5>
+                                                                <h5 class="modal-title" id="commentModalLabel">Comment</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
@@ -86,48 +86,11 @@
                                                                     <form:hidden path="taskId" value="${task.id}" />
                                                                     <form:hidden path="userId" value="${userId}" />
                                                                     <div class="mb-3">
-                                                                        <label for="newComment" class="form-label">Bình luận của bạn</label>
-                                                                        <form:textarea id="newComment" path="content" class="form-control" rows="3" required="true" />
+                                                                        <form:textarea id="newComment" path="content" class="form-control" rows="10" required="true" />
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                                        <button type="submit" class="btn btn-success">Gửi</button>
-                                                                    </div>
-                                                                </form:form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Modal add task -->
-                                                <div class="modal fade" id="addTaskModal-${taskList.id}" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="addTaskModalLabel">Thêm danh sách</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form:form id="addTaskForm" modelAttribute="taskDto" method="post" action="/addTask">
-                                                                    <form:hidden path="taskListId" value="${taskList.id}" />
-                                                                    <div class="mb-3">
-                                                                        <label for="title" class="form-label">Tiêu đề</label>
-                                                                        <form:input path="title" id="title" class="form-control" required="true" />
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label for="description" class="form-label">Mô tả</label>
-                                                                        <form:textarea path="description" id="description" class="form-control" />
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <input type="checkbox" id="enableDueDate" />
-                                                                        <label for="enableDueDate">Thời hạn</label>
-                                                                    </div>
-                                                                    <div class="mb-3" id="datepicker-container" style="display: none">
-                                                                        <form:input type="hidden" path="dueDate" id="dueDate" value="1970-01-01" />
-                                                                        <div id="datepicker-inline" class="shadow-sm p-3 bg-light rounded"></div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                                        <button type="submit" class="btn btn-success">Thêm</button>
+                                                                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-success btn-sm">Send</button>
                                                                     </div>
                                                                 </form:form>
                                                             </div>
@@ -136,21 +99,59 @@
                                                 </div>
                                             </c:forEach>
                                         </div>
-                                        <button class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#addTaskModal-${taskList.id}"><i class="fas fa-plus"></i> Task</button>
+                                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addTaskModal-${taskList.id}"><i class="fas fa-plus"></i> Task</button>
                                     </div>
                                 </div>
+
                                 <!-- Modal xóa TaskList -->
                                 <div class="modal fade" id="deleteTaskListModal" tabindex="-1" aria-labelledby="deleteTaskListModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="deleteTaskListModalLabel">Xác nhận</h5>
+                                                <h5 class="modal-title" id="deleteTaskListModalLabel">Confirm</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <div class="modal-body">Bạn chắc chắn muốn xóa danh sách này?</div>
+                                            <div class="modal-body">Are you sure you want to delete this list?</div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                                                <a type="button" class="btn btn-danger" id="confirmDeleteBtn" href="/deleteTaskList/${taskList.id}">Xóa</a>
+                                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                                                <a type="button" class="btn btn-danger btn-sm" id="confirmDeleteBtn" href="/deleteTaskList/${taskList.id}">Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal add task -->
+                                <div class="modal fade" id="addTaskModal-${taskList.id}" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="addTaskModalLabel">Add Task</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form:form id="addTaskForm" modelAttribute="taskDto" method="post" action="/addTask">
+                                                    <form:hidden path="taskListId" value="${taskList.id}" />
+                                                    <div class="mb-3">
+                                                        <label for="title" class="form-label">Title</label>
+                                                        <form:input path="title" id="title" class="form-control" required="true" />
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="description" class="form-label">Description</label>
+                                                        <form:textarea path="description" id="description" class="form-control" />
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <input type="checkbox" id="enableDueDate" />
+                                                        <label for="enableDueDate">Deadline</label>
+                                                    </div>
+                                                    <div class="mb-3" id="datepicker-container" style="display: none">
+                                                        <form:input type="hidden" path="dueDate" id="dueDate" value="1970-01-01" />
+                                                        <div id="datepicker-inline" class="shadow-sm p-3 bg-light rounded"></div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary btn-sm">Add</button>
+                                                    </div>
+                                                </form:form>
                                             </div>
                                         </div>
                                     </div>
@@ -165,24 +166,24 @@
                 <jsp:include page="./layout/footer.jsp" />
             </div>
         </div>
+
         <!-- Modal add taskLisk -->
         <div class="modal fade" id="addTaskListModal" tabindex="-1" aria-labelledby="addTaskListModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addTaskListModalLabel">Tạo bảng</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h5 class="modal-title" id="addTaskListModalLabel">New List</h5>
                     </div>
                     <div class="modal-body">
                         <form:form id="addTaskListForm" modelAttribute="taskListDto" method="post" action="/addTaskList">
                             <form:hidden path="boardId" value="${boardId}" />
                             <div class="mb-3">
-                                <label for="title" class="form-label">Tiêu đề</label>
+                                <label for="title" class="form-label">Title</label>
                                 <form:input path="name" id="title" class="form-control" required="true" />
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                <button type="submit" class="btn btn-success">Tạo</button>
+                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success btn-sm">Create</button>
                             </div>
                         </form:form>
                     </div>

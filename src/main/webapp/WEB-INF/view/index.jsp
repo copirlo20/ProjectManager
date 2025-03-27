@@ -54,46 +54,46 @@
                                             <p class="text-white-50 small"><i class="fas fa-calendar-alt me-1"></i> ${board.createdAt}</p>
                                         </div>
                                         <div class="card-footer d-flex justify-content-between align-items-center bg-transparent border-0 p-2">
-                                            <a href="/board/${board.id}" class="btn btn-outline-light btn-sm px-2 py-1"> <i class="fas fa-external-link-alt"></i> Xem </a>
+                                            <a href="/board/${board.id}" class="btn btn-outline-light btn-sm px-2 py-1"> <i class="fas fa-external-link-alt"></i> View </a>
                                             <a href="#" class="text-white small" data-bs-toggle="modal" data-bs-target="#addMemberModal-${board.id}">
                                                 <i class="fas fa-user-plus"></i>
                                             </a>
                                         </div>
                                     </div>
                                 </div>
+
                                 <!-- Modal xóa board -->
                                 <div class="modal fade" id="deleteBoardModal" tabindex="-1" aria-labelledby="deleteBoardModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="deleteBoardModalLabel">Xác nhận</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <h5 class="modal-title" id="deleteBoardModalLabel">Confirm</h5>
                                             </div>
-                                            <div class="modal-body">Bạn chắc chắn muốn xóa bảng này?</div>
+                                            <div class="modal-body">Are you sure you want to delete this board?</div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                                                <a type="button" class="btn btn-danger" id="confirmDeleteBtn" href="/deleteBoard/${board.id}">xóa</a>
+                                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                                                <a type="button" class="btn btn-danger btn-sm" id="confirmDeleteBtn" href="/deleteBoard/${board.id}">Delete</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Modal update riêng cho từng board -->
+
+                                <!-- Modal update board -->
                                 <div class="modal fade" id="updateBoardModal-${board.id}" tabindex="-1" aria-labelledby="updateBoardModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="updateBoardModalLabel">Chỉnh sửa bảng</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <h5 class="modal-title" id="updateBoardModalLabel">Edit Board</h5>
                                             </div>
                                             <form:form id="updateBoardForm" modelAttribute="updateBoard" method="post" action="/updateBoard">
                                                 <form:hidden path="id" value="${board.id}" />
                                                 <div class="modal-body">
                                                     <div class="mb-3">
-                                                        <label for="title" class="form-label">Tiêu đề</label>
+                                                        <label for="title" class="form-label">Title</label>
                                                         <form:input path="name" id="title" class="form-control" required="true" value="${board.name}" />
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="description" class="form-label">Mô tả</label>
+                                                        <label for="description" class="form-label">Description</label>
                                                         <form:textarea path="description" id="description-${board.id}" class="form-control"></form:textarea>
                                                         <script>
                                                             document.getElementById('description-${board.id}').value = '${board.description}';
@@ -101,27 +101,20 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                    <button type="submit" class="btn btn-success">Cập nhật</button>
+                                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-success btn-sm">Update</button>
                                                 </div>
                                             </form:form>
                                         </div>
                                     </div>
                                 </div>
+
                                 <!-- Modal add member riêng cho từng board -->
-                                <div
-                                    class="modal fade"
-                                    id="addMemberModal-${board.id}"
-                                    tabindex="-1"
-                                    aria-labelledby="addMemberModalLabel"
-                                    aria-hidden="true"
-                                    th:classappend="${showAddMemberModalId == board.id and showAddMemberModal} ? 'show d-block' : ''"
-                                    th:style="${showAddMemberModalId == board.id and showAddMemberModal} ? 'display: block; background: rgba(0,0,0,0.5);' : ''"
-                                >
+                                <div class="modal fade" id="addMemberModal-${board.id}" tabindex="-1" aria-labelledby="addMemberModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="addMemberModalLabel">Thêm thành viên vào ${board.name}</h5>
+                                                <h5 class="modal-title" id="addMemberModalLabel">Add Member - ${board.name}</h5>
                                             </div>
                                             <div class="modal-body">
                                                 <form:form id="addMemberForm" action="/addMember" method="post" modelAttribute="newMember">
@@ -138,14 +131,21 @@
                                                         <div class="alert alert-danger">${errorMessage}</div>
                                                     </c:if>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" onclick="document.getElementById('addMemberModal-${board.id}').classList.remove('show', 'd-block');">Đóng</button>
-                                                        <button type="submit" class="btn btn-primary">Thêm</button>
+                                                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" aria-label="Close" onclick="document.getElementById('addMemberModal-${board.id}').classList.remove('show', 'd-block');">Close</button>
+                                                        <button type="submit" class="btn btn-primary btn-sm">Add</button>
                                                     </div>
                                                 </form:form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <c:if test="${not empty openModalId}">
+                                    <script>
+                                        $(document).ready(function () {
+                                            $('#' + '${openModalId}').modal('show');
+                                        });
+                                    </script>
+                                </c:if>
                             </c:forEach>
                         </div>
                     </div>
@@ -153,27 +153,27 @@
                 <jsp:include page="./layout/footer.jsp" />
             </div>
         </div>
+
         <!-- Modal add board -->
         <div class="modal fade" id="addBoardModal" tabindex="-1" aria-labelledby="addBoardModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addBoardModalLabel">Tạo bảng</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h5 class="modal-title" id="addBoardModalLabel">New Board</h5>
                     </div>
                     <div class="modal-body">
                         <form:form id="addBoardForm" modelAttribute="newBoard" method="post" action="/addBoard">
                             <div class="mb-3">
-                                <label for="title" class="form-label">Tiêu đề</label>
+                                <label for="title" class="form-label">Title</label>
                                 <form:input path="name" id="title" class="form-control" required="true" />
                             </div>
                             <div class="mb-3">
-                                <label for="description" class="form-label">Mô tả</label>
+                                <label for="description" class="form-label">Description</label>
                                 <form:textarea path="description" id="description" class="form-control" />
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                <button type="submit" class="btn btn-success">Tạo</button>
+                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success btn-sm">Create</button>
                             </div>
                         </form:form>
                     </div>
