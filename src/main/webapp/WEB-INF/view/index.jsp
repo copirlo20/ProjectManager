@@ -62,7 +62,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Modal xóa board -->
+                                <!-- Modal delete board -->
                                 <div class="modal fade" id="deleteBoardModal" tabindex="-1" aria-labelledby="deleteBoardModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
@@ -95,10 +95,10 @@
                                                     <div class="mb-3">
                                                         <label for="description" class="form-label">Description</label>
                                                         <form:textarea path="description" id="description-${board.id}" class="form-control"></form:textarea>
-                                                        <script>
-                                                            document.getElementById('description-${board.id}').value = '${board.description}';
-                                                        </script>
                                                     </div>
+                                                    <script>
+                                                        document.getElementById('description-${board.id}').value = '${board.description}';
+                                                    </script>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
@@ -108,6 +108,8 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Modal add member -->
                                 <div class="modal fade" id="addMemberModal-${board.id}" tabindex="-1" aria-labelledby="addMemberModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
@@ -140,25 +142,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- JavaScript để xóa lỗi khi đóng modal -->
-                                <script>
-                                    function closeModal(boardId) {
-                                        let modal = document.getElementById('addMemberModal-' + boardId);
-                                        let errorMessage = modal.querySelector('#error-message');
-                                        if (errorMessage) errorMessage.remove();
-                                        let successMessage = modal.querySelector('#success-message');
-                                        if (successMessage) successMessage.remove();
-                                    }
-                                </script>
-
-                                <c:if test="${not empty openModalId}">
-                                    <script>
-                                        $(document).ready(function () {
-                                            $('#' + '${openModalId}').modal('show');
-                                        });
-                                    </script>
-                                </c:if>
                             </c:forEach>
                         </div>
                     </div>
@@ -193,5 +176,11 @@
                 </div>
             </div>
         </div>
+
+        <c:if test="${not empty openModalId}">
+            <script>
+                showModal('${openModalId}');
+            </script>
+        </c:if>
     </body>
 </html>

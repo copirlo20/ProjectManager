@@ -89,47 +89,21 @@
                                                                         </c:forEach>
                                                                     </div>
                                                                 </div>
-                                                                <script>
-                                                                    document.getElementById('addCommentForm').addEventListener('submit', function () {
-                                                                        setTimeout(scrollToBottom, 500); // Chờ 0.5s để bình luận mới hiển thị
-                                                                    });
-                                                                </script>
                                                                 <form:form id="addCommentForm-${task.id}" modelAttribute="commentDto" method="post" action="/addComment">
                                                                     <form:hidden path="taskId" value="${task.id}" />
                                                                     <form:hidden path="userId" value="${userId}" />
                                                                     <div class="mb-3">
-                                                                        <form:textarea id="newComment-${task.id}" path="content" class="form-control" rows="5" required="true" />
+                                                                        <form:textarea id="newComment-${task.id}" path="content" class="form-control" rows="5" required="true" data-task-id="${task.id}" />
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
                                                                         <button type="submit" class="btn btn-success btn-sm">Send</button>
                                                                     </div>
                                                                 </form:form>
-                                                                <script>
-                                                                    document.addEventListener('DOMContentLoaded', function () {
-                                                                        document.addEventListener('keydown', function (event) {
-                                                                            let commentInput = document.getElementById('newComment-${task.id}');
-                                                                            let commentForm = document.getElementById('addCommentForm-${task.id}');
-                                                                            if (commentInput && commentForm && event.target === commentInput) {
-                                                                                if (event.key === 'Enter' && !event.shiftKey) {
-                                                                                    event.preventDefault();
-                                                                                    commentForm.submit();
-                                                                                }
-                                                                            }
-                                                                        });
-                                                                    });
-                                                                </script>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <c:if test="${not empty openModalId}">
-                                                    <script>
-                                                        $(document).ready(function () {
-                                                            $('#' + '${openModalId}').modal('show');
-                                                        });
-                                                    </script>
-                                                </c:if>
                                             </c:forEach>
                                         </div>
                                         <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addTaskModal-${taskList.id}"><i class="fas fa-plus"></i> Task</button>
@@ -173,7 +147,7 @@
                                                         <form:textarea path="description" id="description" class="form-control" />
                                                     </div>
                                                     <div class="mb-3">
-                                                        <input type="checkbox" id="enableDueDate" />
+                                                        <input type="checkbox" id="enableDueDate-${taskList.id}" data-taskList-id="${taskList.id}" />
                                                         <label for="enableDueDate">Deadline</label>
                                                     </div>
                                                     <div class="mb-3" id="datepicker-container" style="display: none">
@@ -223,5 +197,11 @@
                 </div>
             </div>
         </div>
+
+        <c:if test="${not empty openModalId}">
+            <script>
+                showModal('${openModalId}');
+            </script>
+        </c:if>
     </body>
 </html>

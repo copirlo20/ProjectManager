@@ -23,11 +23,11 @@
             <div id="layoutAuthentication_content">
                 <main>
                     <div class="container">
-                        <div class="row justify-content-center">
+                        <div class="row justify-content-center align-items-center vh-100">
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header">
-                                        <h3 class="text-center font-weight-light my-4">Login</h3>
+                                        <h3 class="text-center font-weight-light my-4">Welcome</h3>
                                     </div>
                                     <div class="card-body">
                                         <form method="post" action="/login">
@@ -49,7 +49,7 @@
                                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                             </div>
                                             <div class="mt-4 mb-0">
-                                                <div class="d-grid">
+                                                <div class="text-center">
                                                     <button class="btn btn-primary btn-block">Login</button>
                                                 </div>
                                             </div>
@@ -65,7 +65,6 @@
                         </div>
                     </div>
                 </main>
-                <jsp:include page="./layout/footer.jsp" />
             </div>
         </div>
     </body>
