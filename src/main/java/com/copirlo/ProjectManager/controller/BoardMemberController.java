@@ -23,11 +23,11 @@ public class BoardMemberController {
             Model model,
             RedirectAttributes redirectAttributes) {
         String result = boardMemberService.addBoardMember(memberDto);
-        if (!result.isEmpty()) {
+        if (!result.equals("Added member successfully.")) {
             redirectAttributes.addFlashAttribute("errorMessage", result);
-            redirectAttributes.addFlashAttribute("errorMember", memberDto);
-            redirectAttributes.addFlashAttribute("openModalId", "addMemberModal-" + memberDto.getBoardId());
-        }
+        } else
+            redirectAttributes.addFlashAttribute("successMessage", result);
+        redirectAttributes.addFlashAttribute("openModalId", "addMemberModal-" + memberDto.getBoardId());
         return "redirect:/";
     }
 }

@@ -119,14 +119,17 @@
                                                     <form:hidden path="boardId" value="${board.id}" />
                                                     <div class="mb-3">
                                                         <label for="email" class="form-label">Email</label>
-                                                        <form:input type="email" class="form-control" id="email" path="email" required="true" value="${errorMember.email}" />
+                                                        <form:input type="email" class="form-control" id="email" path="email" required="true" />
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="role" class="form-label">Role</label>
-                                                        <form:input type="text" class="form-control" id="role" path="role" required="true" value="${errorMember.role}" />
+                                                        <form:input type="text" class="form-control" id="role" path="role" required="true" />
                                                     </div>
                                                     <c:if test="${not empty errorMessage}">
                                                         <div class="alert alert-danger" id="error-message">${errorMessage}</div>
+                                                    </c:if>
+                                                    <c:if test="${not empty successMessage}">
+                                                        <div class="alert alert-success" id="success-message">${successMessage}</div>
                                                     </c:if>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal('${board.id}')">Close</button>
@@ -143,11 +146,9 @@
                                     function closeModal(boardId) {
                                         let modal = document.getElementById('addMemberModal-' + boardId);
                                         let errorMessage = modal.querySelector('#error-message');
-                                        let errorEmail = modal.querySelector('#email');
-                                        let errorRole = modal.querySelector('#role');
-                                        errorEmail.value = '';
-                                        errorRole.value = '';
-                                        errorMessage.remove();
+                                        if (errorMessage) errorMessage.remove();
+                                        let successMessage = modal.querySelector('#success-message');
+                                        if (successMessage) successMessage.remove();
                                     }
                                 </script>
 

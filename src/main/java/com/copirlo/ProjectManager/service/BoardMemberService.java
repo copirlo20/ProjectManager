@@ -24,17 +24,17 @@ public class BoardMemberService {
 
     public String addBoardMember(MemberDto memberDto) {
         if (this.userRepository.findByEmail(memberDto.getEmail()).isEmpty()) {
-            return "Email chưa đăng ký";
+            return "Email not registered.";
         }
         if (this.boardMemberRepository.findByBoardIdAndUserId(memberDto.getBoardId(),
                 this.userRepository.findByEmail(memberDto.getEmail()).orElse(null).getId()).isPresent()) {
-            return "Thành viên đã tồn tại";
+            return "Member already exists.";
         }
         BoardMember boardMember = new BoardMember();
         boardMember.setBoard(this.boardRepository.findById(memberDto.getBoardId()).orElse(null));
         boardMember.setUser(this.userRepository.findByEmail(memberDto.getEmail()).orElse(null));
         boardMember.setRole(memberDto.getRole());
         this.boardMemberRepository.save(boardMember);
-        return "";
+        return "Added member successfully.";
     }
 }

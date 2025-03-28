@@ -11572,3 +11572,14 @@ body {
     color: white;
     cursor: pointer;
 }
+
+pre {
+    white-space: pre-wrap; /* Xuống dòng khi quá dài */
+    word-wrap: break-word; /* Ngắt từ nếu quá dài */
+    overflow-wrap: break-word; /* Đảm bảo ngắt từ đúng */
+}
+
+pre.d-inline {
+    font-family: inherit;
+    margin: 0;
+}

@@ -75,24 +75,50 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="mb-3">
-                                                                    <div id="commentList" class="border rounded p-2 overflow-auto" style="max-height: 300px">
+                                                                    <div id="commentList" class="border rounded p-2 overflow-auto bg-light" style="max-height: 300px">
                                                                         <c:forEach var="comment" items="${task.comments}" varStatus="loop">
-                                                                            <p class="mb-1"><strong>${comment.user.fullName}:</strong> ${comment.content}</p>
-                                                                            <small class="text-muted">${comment.createdAt}</small>
+                                                                            <div class="d-flex ${comment.user.id == sessionScope.userId ? 'justify-content-end' : 'justify-content-start'}">
+                                                                                <div class="p-2 rounded-3 ${comment.user.id == sessionScope.userId ? 'bg-primary text-white' : 'bg-danger text-white'}" style="max-width: 70%">
+                                                                                    <p class="mb-0"><strong>${comment.user.fullName}:</strong></p>
+                                                                                    <pre class="d-inline">${comment.content}</pre>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="d-flex ${comment.user.id == sessionScope.userId ? 'justify-content-end' : 'justify-content-start'}">
+                                                                                <small class="text-muted mb-1 mt-0">${comment.createdAt}</small>
+                                                                            </div>
                                                                         </c:forEach>
                                                                     </div>
                                                                 </div>
-                                                                <form:form id="addCommentForm" modelAttribute="commentDto" method="post" action="/addComment">
+                                                                <script>
+                                                                    document.getElementById('addCommentForm').addEventListener('submit', function () {
+                                                                        setTimeout(scrollToBottom, 500); // Chờ 0.5s để bình luận mới hiển thị
+                                                                    });
+                                                                </script>
+                                                                <form:form id="addCommentForm-${task.id}" modelAttribute="commentDto" method="post" action="/addComment">
                                                                     <form:hidden path="taskId" value="${task.id}" />
                                                                     <form:hidden path="userId" value="${userId}" />
                                                                     <div class="mb-3">
-                                                                        <form:textarea id="newComment" path="content" class="form-control" rows="10" required="true" />
+                                                                        <form:textarea id="newComment-${task.id}" path="content" class="form-control" rows="5" required="true" />
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
                                                                         <button type="submit" class="btn btn-success btn-sm">Send</button>
                                                                     </div>
                                                                 </form:form>
+                                                                <script>
+                                                                    document.addEventListener('DOMContentLoaded', function () {
+                                                                        document.addEventListener('keydown', function (event) {
+                                                                            let commentInput = document.getElementById('newComment-${task.id}');
+                                                                            let commentForm = document.getElementById('addCommentForm-${task.id}');
+                                                                            if (commentInput && commentForm && event.target === commentInput) {
+                                                                                if (event.key === 'Enter' && !event.shiftKey) {
+                                                                                    event.preventDefault();
+                                                                                    commentForm.submit();
+                                                                                }
+                                                                            }
+                                                                        });
+                                                                    });
+                                                                </script>
                                                             </div>
                                                         </div>
                                                     </div>
