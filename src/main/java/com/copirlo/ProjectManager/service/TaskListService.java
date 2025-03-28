@@ -19,9 +19,11 @@ public class TaskListService {
 
     public void addTaskList(TaskListDto taskListDto) {
         TaskList taskList = new TaskList();
+        int position = this.taskListRepository.findByBoardIdMaxPosition(taskListDto.getBoardId()) + 1;
         taskList.setName(taskListDto.getName());
         taskList.setBoard(this.boardRepository.findById(taskListDto.getBoardId())
                 .orElseThrow(() -> new IllegalArgumentException("Board not found")));
+        taskList.setPosition(position);
         this.taskListRepository.save(taskList);
     }
 

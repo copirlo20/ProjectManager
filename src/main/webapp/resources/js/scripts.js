@@ -1,6 +1,6 @@
 /*
-* Open-close sidebar
-*/
+ * Open-close sidebar
+ */
 window.addEventListener('DOMContentLoaded', event => {
     const sidebarToggle = document.body.querySelector('#sidebarToggle');
     if (sidebarToggle) {
@@ -13,8 +13,8 @@ window.addEventListener('DOMContentLoaded', event => {
 });
 
 /*
-* Format dua date
-*/
+ * Format dua date
+ */
 $(document).ready(function () {
     $('#datepicker-inline').datepicker({
         format: 'yyyy-mm-dd',
@@ -93,8 +93,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 /*
-* Press Enter to submit comment
-*/
+ * Press Enter to submit comment
+ */
 document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('keydown', function (event) {
         let taskId = event.target.getAttribute('data-task-id');
@@ -113,8 +113,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 /*
-* Reset modal form when close
-*/
+ * Reset modal form when close
+ */
 function closeModal(boardId) {
     let modal = document.getElementById('addMemberModal-' + boardId);
     let errorMessage = modal.querySelector('#error-message');
@@ -124,8 +124,8 @@ function closeModal(boardId) {
 }
 
 /*
-* Show modal when redirect to page
-*/
+ * Show modal when redirect to page
+ */
 function showModal(openModalId) {
     if (openModalId) {
         $(document).ready(function () {

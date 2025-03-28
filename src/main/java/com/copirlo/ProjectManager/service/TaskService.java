@@ -19,8 +19,10 @@ public class TaskService {
 
     public void addTask(TaskDto taskDto) {
         Task task = new Task();
+        int position = this.taskRepository.findByTaskListIdMaxPosition(taskDto.getTaskListId()) + 1;
         task.setTitle(taskDto.getTitle());
         task.setDescription(taskDto.getDescription());
+        task.setPosition(position);
         if (taskDto.getDueDate().toLocalDate().equals(new Date(0).toLocalDate())) {
             task.setDueDate(null);
         } else {
