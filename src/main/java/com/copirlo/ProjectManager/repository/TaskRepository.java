@@ -33,5 +33,5 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
     @Modifying
     @Transactional
     @Query("UPDATE Task task SET task.position = :newPosition WHERE task.id = :taskId")
-    void updateCardPosition(Integer taskId, Integer newPosition);
+    void updateTaskPosition(Integer taskId, Integer newPosition);
 }
