@@ -2,6 +2,7 @@ package com.copirlo.ProjectManager.service;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.copirlo.ProjectManager.dto.TaskListDto;
 import com.copirlo.ProjectManager.entity.TaskList;
 import com.copirlo.ProjectManager.repository.BoardRepository;
@@ -32,7 +33,17 @@ public class TaskListService {
                 .getTaskLists();
     }
 
+    @Transactional
     public void deleteTaskList(int taskListId) {
+        int boardId = this.taskListRepository.findById(taskListId)
+                .orElseThrow(() -> new IllegalArgumentException("TaskList not found")).getBoard().getId();
+        int start = this.taskListRepository.findById(taskListId)
+                .orElseThrow(() -> new IllegalArgumentException("TaskList not found")).getPosition();
+        int end = this.taskListRepository.findByBoardIdMaxPosition(boardId) + 1;
+        if (start == end) {
+            return;
+        }
+        this.taskListRepository.decrementPositions(boardId, start, end);
         this.taskListRepository.deleteById(taskListId);
     }
 }

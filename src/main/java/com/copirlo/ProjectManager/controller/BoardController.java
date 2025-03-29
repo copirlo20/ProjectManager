@@ -1,5 +1,7 @@
 package com.copirlo.ProjectManager.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +11,7 @@ import com.copirlo.ProjectManager.dto.CommentDto;
 import com.copirlo.ProjectManager.dto.TaskDto;
 import com.copirlo.ProjectManager.dto.TaskListDto;
 import com.copirlo.ProjectManager.entity.Board;
+import com.copirlo.ProjectManager.entity.TaskList;
 import com.copirlo.ProjectManager.service.BoardService;
 import com.copirlo.ProjectManager.service.TaskListService;
 import com.copirlo.ProjectManager.service.UserService;
@@ -34,8 +37,16 @@ public class BoardController {
         if (!this.userService.checkMember(boardId)) {
             return "401";
         }
+        List<TaskList> taskLists = this.taskListService.getTaskLists(boardId).stream()
+                .sorted((a1, b2) -> Integer.compare(a1.getPosition(), b2.getPosition()))
+                .toList();
+        for (TaskList taskList : taskLists) {
+            taskList.setTasks(taskList.getTasks().stream()
+                    .sorted((a1, b2) -> Integer.compare(a1.getPosition(), b2.getPosition()))
+                    .toList());
+        }
         model.addAttribute("boardId", boardId);
-        model.addAttribute("taskLists", taskListService.getTaskLists(boardId));
+        model.addAttribute("taskLists", taskLists);
         model.addAttribute("taskListDto", new TaskListDto());
         model.addAttribute("taskDto", new TaskDto());
         model.addAttribute("commentDto", new CommentDto());

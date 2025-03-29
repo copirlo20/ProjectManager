@@ -29,4 +29,18 @@ public class TaskController {
         this.taskService.deleteTask(taskId);
         return "redirect:" + referer;
     }
+
+    @RequestMapping("/moveTaskToList/{boardId}/{taskId}/{newTaskListId}")
+    public String moveTaskToList(
+            @PathVariable("boardId") int boardId,
+            @PathVariable("taskId") int taskId,
+            @PathVariable("newTaskListId") int newTaskListPosition,
+            @RequestHeader(value = "Referer", required = false) String referer) {
+        try {
+            this.taskService.moveTaskToList(boardId, taskId, newTaskListPosition);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return "redirect:" + referer;
+    }
 }

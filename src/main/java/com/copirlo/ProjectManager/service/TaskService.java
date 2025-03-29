@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.copirlo.ProjectManager.dto.TaskDto;
 import com.copirlo.ProjectManager.entity.Task;
+import com.copirlo.ProjectManager.entity.TaskList;
 import com.copirlo.ProjectManager.repository.TaskListRepository;
 import com.copirlo.ProjectManager.repository.TaskRepository;
 
@@ -13,14 +14,16 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final TaskListRepository taskListRepository;
 
-    public TaskService(TaskRepository taskRepository, TaskListRepository taskListRepository) {
+    public TaskService(
+            TaskRepository taskRepository,
+            TaskListRepository taskListRepository) {
         this.taskRepository = taskRepository;
         this.taskListRepository = taskListRepository;
     }
 
     public void addTask(TaskDto taskDto) {
         Task task = new Task();
-        int position = this.taskRepository.findByTaskListIdMaxPosition(taskDto.getTaskListId()) + 1;
+        int position = this.taskRepository.findByTaskListPositionMax(taskDto.getTaskListId()) + 1;
         task.setTitle(taskDto.getTitle());
         task.setDescription(taskDto.getDescription());
         task.setPosition(position);
@@ -47,10 +50,26 @@ public class TaskService {
             return;
         }
         if (newPosition < oldPosition) {
-            taskRepository.incrementPositions(taskListId, newPosition, oldPosition);
+            this.taskRepository.incrementPositions(taskListId, newPosition, oldPosition);
         } else {
-            taskRepository.decrementPositions(taskListId, oldPosition, newPosition);
+            this.taskRepository.decrementPositions(taskListId, oldPosition, newPosition);
         }
-        taskRepository.updateTaskPosition(taskId, newPosition);
+        this.taskRepository.updateTaskPosition(taskId, newPosition);
+    }
+
+    @Transactional
+    public void moveTaskToList(int boardId, int taskId, int newTaskListPosition) {
+        Task task = this.taskRepository.findById(taskId)
+                .orElseThrow(() -> new IllegalArgumentException("task not found"));
+        int oldTaskListId = task.getTaskList().getId();
+        int start = task.getPosition();
+        int end = this.taskRepository.findByTaskListPositionMax(oldTaskListId);
+        this.taskRepository.decrementPositions(oldTaskListId, start, end);
+        TaskList newTaskList = this.taskListRepository.findByBoardIdAndPosition(boardId, newTaskListPosition)
+                .orElseThrow(() -> new IllegalArgumentException("TaskList not found"));
+        int newPosition = this.taskRepository.findByTaskListPositionMax(newTaskList.getId()) + 1;
+        task.setTaskList(newTaskList);
+        this.taskRepository.save(task);
+        this.taskRepository.updateTaskPosition(taskId, newPosition);
     }
 }

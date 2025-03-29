@@ -39,7 +39,7 @@
                                         <h5>${taskList.name}</h5>
                                         <div>
                                             <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteTaskListModal"><i class="fas fa-trash"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteTaskListModal-${taskList.id}"><i class="fas fa-trash"></i></button>
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -58,8 +58,8 @@
                                                                 <!-- <p class="mb-0"><i class="fas fa-user-circle fa-sm"></i></p> -->
                                                             </div>
                                                             <div>
-                                                                <button class="btn btn-light btn-sm"><i class="fas fa-arrow-left"></i></button>
-                                                                <button class="btn btn-light btn-sm"><i class="fas fa-arrow-right"></i></button>
+                                                                <a class="btn btn-light btn-sm" href="/moveTaskToList/${boardId}/${task.id}/${taskList.position - 1}"><i class="fas fa-arrow-left"></i></a>
+                                                                <a class="btn btn-light btn-sm" href="/moveTaskToList/${boardId}/${task.id}/${taskList.position + 1}"><i class="fas fa-arrow-right"></i></a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -110,8 +110,8 @@
                                     </div>
                                 </div>
 
-                                <!-- Modal xóa TaskList -->
-                                <div class="modal fade" id="deleteTaskListModal" tabindex="-1" aria-labelledby="deleteTaskListModalLabel" aria-hidden="true">
+                                <!-- Modal delete taskList -->
+                                <div class="modal fade" id="deleteTaskListModal-${taskList.id}" tabindex="-1" aria-labelledby="deleteTaskListModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">

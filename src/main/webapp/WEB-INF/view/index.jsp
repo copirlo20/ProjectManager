@@ -43,7 +43,7 @@
                                                 <a href="#" class="text-white small me-2" data-bs-toggle="modal" data-bs-target="#updateBoardModal-${board.id}">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <a href="#" class="text-white small" data-bs-toggle="modal" data-bs-target="#deleteBoardModal">
+                                                <a href="#" class="text-white small" data-bs-toggle="modal" data-bs-target="#deleteBoardModal-${board.id}">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
                                             </div>
@@ -63,7 +63,7 @@
                                 </div>
 
                                 <!-- Modal delete board -->
-                                <div class="modal fade" id="deleteBoardModal" tabindex="-1" aria-labelledby="deleteBoardModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="deleteBoardModal-${board.id}" tabindex="-1" aria-labelledby="deleteBoardModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">

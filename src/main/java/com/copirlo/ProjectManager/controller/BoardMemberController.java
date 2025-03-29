@@ -22,7 +22,7 @@ public class BoardMemberController {
             @ModelAttribute("newMember") MemberDto memberDto,
             Model model,
             RedirectAttributes redirectAttributes) {
-        String result = boardMemberService.addBoardMember(memberDto);
+        String result = this.boardMemberService.addBoardMember(memberDto);
         if (!result.equals("Added member successfully.")) {
             redirectAttributes.addFlashAttribute("errorMessage", result);
         } else

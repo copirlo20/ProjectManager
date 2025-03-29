@@ -9,23 +9,20 @@ import com.copirlo.ProjectManager.entity.Task;
 
 public interface TaskRepository extends JpaRepository<Task, Integer> {
     @Query("SELECT COALESCE(MAX(t.position), 0) FROM Task t WHERE t.taskList.id = :taskListId")
-    int findByTaskListIdMaxPosition(@Param("taskListId") Integer taskListId);
+    int findByTaskListPositionMax(@Param("taskListId") int taskListId);
 
     /*
-     * Update position of all tasks in a task list when a task is moved up
+     * Update position of all tasks in a task list when a task is moved or deleted
      */
     @Modifying
     @Transactional
     @Query("UPDATE Task task SET task.position = task.position + 1 WHERE task.taskList.id = :taskListId AND task.position >= :start AND task.position < :end")
-    void incrementPositions(Integer taskListId, Integer start, Integer end);
+    void incrementPositions(int taskListId, int start, int end);
 
-    /*
-     * Update position of all tasks in a task list when a task is moved down
-     */
     @Modifying
     @Transactional
     @Query("UPDATE Task task SET task.position = task.position - 1 WHERE task.taskList.id = :taskListId AND task.position > :start AND task.position <= :end")
-    void decrementPositions(Integer taskListId, Integer start, Integer end);
+    void decrementPositions(int taskListId, int start, int end);
 
     /*
      * Update position of a task when it is moved to a new position
@@ -33,5 +30,5 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
     @Modifying
     @Transactional
     @Query("UPDATE Task task SET task.position = :newPosition WHERE task.id = :taskId")
-    void updateTaskPosition(Integer taskId, Integer newPosition);
+    void updateTaskPosition(int taskId, int newPosition);
 }
